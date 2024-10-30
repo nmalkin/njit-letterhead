@@ -1,0 +1,109 @@
+\documentclass[11pt]{letter}
+
+
+\usepackage[T1]{fontenc} % handle accented characters, see https://tex.stackexchange.com/a/677
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage[skip=12pt plus6pt, indent=0pt]{parskip}
+\usepackage{xcolor}
+
+% Fonts
+\usepackage{ebgaramond-maths}
+\usepackage{fontspec}
+\usepackage{times}
+\setmainfont{Times New Roman}
+
+ \usepackage{lipsum}
+
+
+\definecolor{custom-blue}{HTML}{1155cc}
+\definecolor{custom-cyan}{HTML}{0aa8d8}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=magenta,
+  urlcolor=custom-blue,
+  citecolor=custom-cyan
+}
+
+
+% Disable letter class "feature" that centers the letter's first page, creating space above the letterhead
+% via https://tex.stackexchange.com/a/87613
+\makeatletter
+\def\@texttop{}
+\makeatother
+
+
+% Redefine the \opening environment to position the logo alongside the address
+% Also moves the date to the left for consistency with the school's prevailing style
+% Inspired by https://tex.stackexchange.com/a/172786
+% Original macro source from https://mirrors.ctan.org/macros/latex/base/letter.dtx
+\makeatletter
+\renewcommand*\opening[1]{%
+
+\vspace*{-0.5in} % Smaller margin on first page; seems to work with values >=1in, but not this one
+\ifx\@empty\fromaddress
+  \thispagestyle{firstpage}%
+    \@date
+  \else
+    \thispagestyle{empty}%
+    \parbox[t]{.7\linewidth}
+    {
+        \begin{flushleft}
+            \includegraphics[width=1.85in]{logo.png}\\
+        \end{flushleft}
+    }
+    \parbox[t]{.3\linewidth}
+    {
+        \begin{flushleft}%
+            {\fontsize{9}{11}
+            \ebgaramond
+                \fromaddress \\*[2\parskip]%
+            }
+        \end{flushleft}
+    }
+  \fi
+
+  \vspace{1\parskip}
+
+  \@date 
+
+  {\raggedright \toname \expandafter\\\toaddress \par}
+
+
+  #1\par\nobreak}
+\makeatother
+% End of \opening redefinition
+
+
+
+\frenchspacing
+
+
+\title{Letter}
+\author{Name}
+
+\signature{%
+    \emph{Your Name Here} \\
+}
+
+\address{
+    \textbf{Name} \\
+    \textit{Title} \\
+    Department of Science \\
+    New Jersey Institute of Technology \\
+    Newark, NJ \: 07102
+}
+
+\longindentation=0pt % To move the closing and signature parts to the left
+
+
+\begin{document}
+
+% Format hyperlinks to include underlines. This must be done after the document begins (via https://tex.stackexchange.com/a/674902)
+% However, it seems to only render correctly in Firefox, but not Chrome or MacOS Preview
+\hypersetup{
+  urlbordercolor=custom-blue
+}

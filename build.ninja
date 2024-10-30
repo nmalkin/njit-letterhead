@@ -1,0 +1,8 @@
+# For use with the Ninja build system: https://ninja-build.org/
+
+rule build
+    command = tectonic -X build
+    description = use Tectonic to build $out from $in
+
+build build/letter/letter.pdf: build src/_preamble.tex src/index.tex src/_postamble.tex src/logo.png
+
